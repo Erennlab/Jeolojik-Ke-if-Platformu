@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Üç bölümlü etkileşimli jeolojik keşif deneyimi">
+  <title>Jeolojik Keşif Platformu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="experience">
+    <section class="panel panel-1" id="bolum-1">
+      <div class="design"><img src="assets/page-1.svg" alt="Jeolojik keşif platformu giriş ekranı"></div>
+    </section>
+    <section class="panel panel-2" id="bolum-2">
+      <div class="design"><img src="assets/page-2.svg" alt="Jeolojik oluşumlar ve keşif içeriği"></div>
+      <div class="globe" aria-hidden="true">
+        <div class="whole-earth"></div>
+        <i class="piece piece-a"></i>
+        <i class="piece piece-b"></i>
+        <i class="piece piece-c"></i>
+        <i class="piece piece-d"></i>
+        <i class="piece piece-e"></i>
+      </div>
+    </section>
+    <section class="panel panel-3" id="bolum-3">
+      <div class="design"><img src="assets/page-3.svg" alt="Jeolojik keşif platformu son bölümü"></div>
+    </section>
+  </main>
+  <nav class="progress" aria-label="Bölümler">
+    <a href="#bolum-1">01</a>
+    <a href="#bolum-2">02</a>
+    <a href="#bolum-3">03</a>
+  </nav>
+  <script>
+    const globe=document.querySelector(".globe");
+    const panels=[...document.querySelectorAll(".panel")];
+    const update=()=>{panels.forEach(item=>{const box=item.getBoundingClientRect();const distance=Math.abs(box.top+box.height/2-innerHeight/2);const focus=Math.max(0,Math.min(1,1-distance/innerHeight));item.style.setProperty("--focus",focus.toFixed(3))});const panel=document.querySelector("#bolum-2").getBoundingClientRect();const distance=Math.abs(panel.top+panel.height/2-innerHeight/2);const raw=Math.max(0,Math.min(1,1-distance/(innerHeight*1.05)));const open=raw*raw*(3-2*raw);const shards=Math.sin(open*Math.PI);const whole=open>.92?0:1-open;globe.style.setProperty("--open",open.toFixed(3));globe.style.setProperty("--whole",whole.toFixed(3));globe.style.setProperty("--cover",(1-open).toFixed(3));globe.style.setProperty("--shards",shards.toFixed(3));document.querySelector("#bolum-2").style.setProperty("--cover",(1-open).toFixed(3))};
+    addEventListener("scroll",update,{passive:true});addEventListener("resize",update);update();
+  </script>
+</body>
+</html>
